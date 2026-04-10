@@ -1,0 +1,36 @@
+#include <MicroMatrix.h>
+
+double Luz;
+double Choiva;
+MicroMatrix micromatrix_steamakers;
+
+void setup()
+{
+
+
+	Serial.begin(115200);
+	Serial.flush();
+	while(Serial.available()>0)Serial.read();
+
+pinMode(39, INPUT);
+	pinMode(12, INPUT);
+
+	micromatrix_steamakers.SetBrightness(100);
+
+}
+
+
+void loop()
+{
+	yield();
+
+  	Luz = map(analogRead(39),0,4095,0,100);
+  	micromatrix_steamakers.TextScroll(String(Luz),CRGB(51,204,0),150);
+  	Serial.println(String("Luz: ")+String(Luz));
+  	delay(3000);
+  	Choiva = ((float)analogRead(12));
+  	micromatrix_steamakers.TextScroll(String(Choiva),CRGB(51,204,255),150);
+  	Serial.println(String("Choiva: ")+String(Choiva));
+  	delay(3000);
+
+}
